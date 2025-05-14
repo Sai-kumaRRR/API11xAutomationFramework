@@ -10,9 +10,7 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
-
 import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 
 public class BaseTest {
@@ -47,7 +45,7 @@ public class BaseTest {
     }
 
 
-    public String getToken(){
+    public String getToken() {
         requestSpecification = RestAssured.given();
         requestSpecification.baseUri(APIConstants.BASE_URL)
                 .basePath(APIConstants.AUTH_URL);

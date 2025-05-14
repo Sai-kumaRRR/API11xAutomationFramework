@@ -114,12 +114,45 @@ public class PayloadManager {
         return null;
 
     }
-    public Booking getResponseFromJSON(String getResponse){
+
+    public Booking getResponseFromJSON(String getResponse) {
         gson = new Gson();
         Booking booking = gson.fromJson(getResponse, Booking.class);
         return booking;
-    }
-
-
 
     }
+
+    public String fullUpdatePayloadAsString() {
+        Booking booking = new Booking();
+        booking.setFirstname("Lucky");
+        booking.setLastname("KUMAR");
+        booking.setTotalprice(112);
+        booking.setDepositpaid(true);
+
+        Bookingdates bookingdates = new Bookingdates();
+        bookingdates.setCheckin("5025-02-01");
+        bookingdates.setCheckout("5025-02-01");
+        booking.setBookingdates(bookingdates);
+        booking.setAdditionalneeds("Breakfast");
+        return gson.toJson(booking);
+
+
+    }
+
+    public String partialUpdatePayloadAsString() {
+        Booking booking = new Booking();
+        booking.setFirstname("Lucky");
+        booking.setLastname("KUMAR");
+        booking.setTotalprice(112);
+        booking.setDepositpaid(true);
+
+        Bookingdates bookingdates = new Bookingdates();
+        bookingdates.setCheckin("5025-02-01");
+        bookingdates.setCheckout("5025-02-01");
+        booking.setBookingdates(bookingdates);
+        booking.setAdditionalneeds("Breakfast");
+        return gson.toJson(booking);
+
+    }
+
+}
