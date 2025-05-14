@@ -9,7 +9,7 @@ import static org.testng.Assert.assertEquals;
 public class AssertActions {
 
 
-    public void verifyResponseBody(int actual, int expected, String description) {
+    public void verifyResponseBody(String actual, String expected, String description) {
         assertEquals(actual, expected, description);
 
     }

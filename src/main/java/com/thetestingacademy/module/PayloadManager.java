@@ -8,6 +8,7 @@ import com.thetestingacademy.POJOs.Request.Bookingdates;
 import com.thetestingacademy.POJOs.Response.BookingResponse;
 import com.thetestingacademy.POJOs.Response.TokenResponse;
 
+
 public class PayloadManager {
 
 
@@ -16,7 +17,7 @@ public class PayloadManager {
 
     //convert the java object into the json String to use as payload.
     //Serialization
-    public String createPayloadAsString() {
+    public String createPayloadBookingAsString() {
         Booking booking = new Booking();
         booking.setFirstname("Sai");
         booking.setLastname("kumar");
@@ -33,18 +34,44 @@ public class PayloadManager {
 
         // java object -> json
 
-        Gson gson = new Gson();
+        gson = new Gson();
         String jsonStringBooking = gson.toJson(booking);
         return jsonStringBooking;
 
 
     }
+
+    public String createPayloadBookingAsStringWrongBody() {
+        Booking booking = new Booking();
+        booking.setFirstname("@&$");
+        booking.setLastname("@$&");
+        booking.setTotalprice(112);
+        booking.setDepositpaid(false);
+
+        Bookingdates bookingdates = new Bookingdates();
+        bookingdates.setCheckin("5025-02-01");
+        bookingdates.setCheckout("5025-02-01");
+        booking.setBookingdates(bookingdates);
+        booking.setAdditionalneeds("*%$");
+
+        System.out.println(booking);
+
+        // java object -> json
+
+        gson = new Gson();
+        String jsonStringBooking = gson.toJson(booking);
+        return jsonStringBooking;
+
+
+    }
+
+
     //Convert the json String to java object so that we can verify response body
     // Deserializetion
 
     public BookingResponse bookingResponseJava(String responseString) {
         gson = new Gson();
-        BookingResponse bookingResponse = gson.fromJson(responseString, BookingResponseJava);
+        BookingResponse bookingResponse = gson.fromJson(responseString, BookingResponse.class);
         return bookingResponse;
 
     }
@@ -59,7 +86,7 @@ public class PayloadManager {
 
         return jsonPayloadString;
     }
-    // Deser (JSON String -> java object)
+    // Deser (JSON String -> Java Object)
 
     public String getTokenFromJson(String tokenResponse) {
         gson = new Gson();
@@ -84,7 +111,13 @@ public class PayloadManager {
         booking.setAdditionalneeds("Breakfast");
 
         System.out.println(booking);
+        return null;
 
+    }
+    public Booking getResponseFromJSON(String getResponse){
+        gson = new Gson();
+        Booking booking = gson.fromJson(getResponse, Booking.class);
+        return booking;
     }
 
 

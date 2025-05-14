@@ -31,15 +31,16 @@ public class testIntegrationSample {
 
     @Test(groups = "QA", priority = 3)
     @Owner("sai")
-    @Description("TC#1 - Step1.verify updated booking by ID")
-    public void testcreateBookingID() {
+    @Description("TC#1 - Step3.verify updated booking by ID")
+    public void testUpdateBookingID() {
+
         Assert.assertTrue(true);
     }
 
     @Test(groups = "QA", priority = 4)
     @Owner("sai")
-    @Description("TC#1 - Step1.Delete booking by ID")
-    public void testcreateBookingById() {
+    @Description("TC#1 - Step4.Delete booking by ID")
+    public void testDeleteBookingById() {
         Assert.assertTrue(true);
 
     }
