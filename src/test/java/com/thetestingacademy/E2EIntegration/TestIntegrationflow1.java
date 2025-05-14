@@ -1,11 +1,21 @@
 package com.thetestingacademy.E2EIntegration;
 
+import com.thetestingacademy.POJOs.Request.Booking;
+import com.thetestingacademy.POJOs.Response.BookingResponse;
+import com.thetestingacademy.endpoint.APIConstants;
 import io.qameta.allure.Description;
 import io.qameta.allure.Owner;
+import io.restassured.RestAssured;
 import org.testng.Assert;
+import org.testng.ITestContext;
 import org.testng.annotations.Test;
 
-public class TestIntegrationflow1 {
+import static io.restassured.RestAssured.requestSpecification;
+import static io.restassured.RestAssured.responseSpecification;
+import static jdk.dynalink.linker.support.Guards.isNotNull;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
+public class TestIntegrationflow1 extends BaseTest {
 
     // TestE2EFlow_01
     // Test E2E Scenario 1
@@ -23,19 +33,38 @@ public class TestIntegrationflow1 {
         //delete the booking
 
         @Test(groups = "QA", priority = 1)
-        @Owner("sai")
-        @Description("TC#1 - Step1.verify that the booking can be created.")
-        public void testcreateBooking() {
-            Assert.assertTrue(true);
-
+        @Owner("Sai")
+        @Description("TC#1 - Step1.Verify that the Booking can be Created.")
+        public void testCreateBooking(ITestContext iTestContext){
 
         }
 
+
         @Test(groups = "QA", priority = 2)
-        @Owner("sai")
-        @Description("TC#1 - Step2.verify that the booking by ID")
-        public void testcreateBookingId() {
-            Assert.assertTrue(true);
+        @Owner("Sai")
+        @Description("TC# INT1 - Step2.Verify that the Booking by ID")
+        public void testCreateBookingId(ITestContext iTestContext) {
+
+        Integer bookingid = (Integer) iTestContext.getAttribute("bookingid");
+
+        String basePathGET = APIConstants.CRATE_UPDATE_URL + "/"+bookingid;
+            System.out.println(basePathGET);
+
+            requestSpecification.basePath(basePathGET);
+            response = RestAssured
+                    .given(requestSpecification)
+                    .when().get();
+            validateResponse = response.then().log().all();
+
+           // Validatable Assertion
+             validatableResponse.statusCode(200);
+
+             Booking booking = payloadManager.getResponseFromJSON(response.asString());
+             assertThat(booking.getFirstname()).isNotNull().isNotBlank);
+             assertThat(booking.getFirstname()).isEqualTo("Sai");
+
+
+
 
         }
 
@@ -45,6 +74,11 @@ public class TestIntegrationflow1 {
         public void testcreateBookingID() {
             Assert.assertTrue(true);
         }
+
+
+
+
+
 
         @Test(groups = "QA", priority = 4)
         @Owner("sai")
