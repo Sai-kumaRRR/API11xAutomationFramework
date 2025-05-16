@@ -29,14 +29,12 @@ public class TestIntegrationFlow1 extends BaseTest {
 
     @Test(groups = "QA", priority = 1)
     @Owner("Sai")
-    @Description("TC#1 - Step1.Verify that the Booking can be Created.")
+    @Description("TC#1INT1 - Step1.Verify that the Booking can be Created.")
     public void testCreateBooking(ITestContext iTestContext) {
 
-
         requestSpecification.basePath(APIConstants.CREATE_UPDATE_BOOKING_URL);
-        response = RestAssured.given(requestSpecification).when().body(payloadManager.createPayloadBookingFakerJS()).log().all().post();
-        System.out.println(response.asString());
-
+        response = RestAssured.given(requestSpecification)
+                .when().body(payloadManager.createPayloadBookingAsString()).post();
 
         validatableResponse = response.then().log().all();
         validatableResponse.statusCode(200);
@@ -54,20 +52,18 @@ public class TestIntegrationFlow1 extends BaseTest {
     @Test(groups = "QA", priority = 2)
     @Owner("Sai")
     @Description("TC# INT1 - Step2.Verify that the Booking by ID")
-    public void testCreateBookingId(ITestContext iTestContext) {
+    public void testVerifyBookingId(ITestContext iTestContext) {
 
         Integer bookingid = (Integer) iTestContext.getAttribute("bookingid");
 
         String basePathGET = APIConstants.CREATE_UPDATE_BOOKING_URL + "/" + bookingid;
         System.out.println(basePathGET);
 
-
         requestSpecification.basePath(basePathGET);
-        response = RestAssured.given(requestSpecification).when().get();
-
-
+        response = RestAssured
+                .given(requestSpecification)
+                .when().get();
         validatableResponse = response.then().log().all();
-
         //variable Assertion
         validatableResponse.statusCode(200);
 
@@ -78,8 +74,8 @@ public class TestIntegrationFlow1 extends BaseTest {
     }
 
     @Test(groups = "QA", priority = 3)
-    @Owner("sai")
-    @Description("TC#1 - Step3.verify Updated booking by ID")
+    @Owner("Sai")
+    @Description("TC#INT1 - Step3.verify Updated booking by ID")
     public void testUpdateBookingByID(ITestContext iTestContext) {
 
         Integer bookingid = (Integer) iTestContext.getAttribute("bookingid");
@@ -87,12 +83,15 @@ public class TestIntegrationFlow1 extends BaseTest {
         iTestContext.setAttribute("token", token);
 
 
-        String basePATHPUTPATCH = APIConstants.CREATE_UPDATE_BOOKING_URL + "/" + bookingid;
-        System.out.println(basePATHPUTPATCH);
+        String basePathPUTPATCH = APIConstants.CREATE_UPDATE_BOOKING_URL + "/" + bookingid;
+        System.out.println(basePathPUTPATCH);
 
-        requestSpecification.basePath(basePATHPUTPATCH);
 
-        response = RestAssured.given(requestSpecification).cookie("token", token).when().body(payloadManager.fullUpdatePayloadAsString()).put();
+        requestSpecification.basePath(basePathPUTPATCH);
+
+        response = RestAssured
+                .given(requestSpecification).cookie("token", token)
+                .when().body(payloadManager.fullUpdatePayloadAsString()).put();
 
         validatableResponse = response.then().log().all();
         //validatable Assertion
@@ -106,18 +105,19 @@ public class TestIntegrationFlow1 extends BaseTest {
 
     }
 
-
     @Test(groups = "QA", priority = 4)
     @Owner("sai")
-    @Description("TC#1 - Step4.Delete booking by ID")
+    @Description("TC#INT1 - Step4.Delete the booking by ID")
     public void testDeleteBookingById(ITestContext iTestContext) {
 
         Integer bookingid = (Integer) iTestContext.getAttribute("bookingid");
         String token = (String) iTestContext.getAttribute("token");
-        String basePATHDELETE = APIConstants.CREATE_UPDATE_BOOKING_URL + "/" + bookingid;
 
-        requestSpecification.basePath(basePATHDELETE).cookie("token", token);
-        validatableResponse = RestAssured.given(requestSpecification).when().delete().then().log().all();
+        String basePathDELETE = APIConstants.CREATE_UPDATE_BOOKING_URL + "/" + bookingid;
+
+        requestSpecification.basePath(basePathDELETE).cookie("token", token);
+        validatableResponse = RestAssured.given().spec(requestSpecification)
+                .when().delete().then().log().all();
 
         validatableResponse.statusCode(201);
     }

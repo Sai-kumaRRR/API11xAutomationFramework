@@ -3,7 +3,7 @@
 <suite name="All Test Suite">
     <test verbose="2" preserve-order="true" name="API11xAutomationFramework/testng.xml">
     <classes>
-        <class name="com.thetestingacademy.E2EIntegration.TestIntegrationFlow1">
+        <class name="com.thetestingacademy.Crud.TestCreateToken">
 
         </class>
             </classes>

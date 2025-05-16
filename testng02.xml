@@ -2,12 +2,12 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="All Test Suite">
     <test verbose="2" preserve-order="true" name="API11xAutomationFramework/testng.xml">
-    <classes>
-        <class name="com.thetestingacademy.E2EIntegration.TestIntegrationFlow1">
+        <classes>
+            <class name="com.thetestingacademy.testssample.testIntegrationSample">
 
-        </class>
-            </classes>
+            </class>
+        </classes>
 
 
-</test>
+    </test>
 </suite>
